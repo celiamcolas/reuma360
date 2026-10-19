@@ -453,6 +453,7 @@ window.R360 = {
     {id:'aps', name:'Artritis psoriásica', short:'APs', fam:'infl', aliases:['psoriasica','PsA','APso']},
     {id:'espa', name:'Espondiloartritis axial', short:'EspAax', fam:'infl', aliases:['espondilitis anquilosante','EA','axSpA','EspA','r-axSpA','nr-axSpA']},
     {id:'are', name:'Artritis reactiva', short:'ARe', fam:'infl', aliases:['Reiter']},
+    {id:'rpal', name:'Reumatismo palindrómico', short:'RP', fam:'infl', aliases:['palindromico','palindrómico','reumatismo palindromico','artritis palindromica']},
     {id:'aeii', name:'Artritis asociada a enfermedad inflamatoria intestinal', short:'EII', fam:'infl', aliases:['enteropática','Crohn','colitis ulcerosa']},
     {id:'les', name:'Lupus eritematoso sistémico', short:'LES', fam:'conect', aliases:['lupus','SLE']},
     {id:'saf', name:'Síndrome antifosfolípido', short:'SAF', fam:'conect', aliases:['antifosfolipido','APS','Hughes']},
@@ -513,6 +514,7 @@ window.R360 = {
 };
 /* Sinónimos y abreviaturas: clave normalizada (sin tildes, minúsculas) → expansiones */
 R360.syn = {
+  palindromico:['reumatismo palindromico'], rpal:['reumatismo palindromico'],
   mtx:['metotrexato'], lef:['leflunomida'], ssz:['sulfasalazina'], hcq:['hidroxicloroquina'], hcl:['hidroxicloroquina'],
   ar:['artritis reumatoide'], aps:['artritis psoriasica'], apso:['artritis psoriasica'], psa:['artritis psoriasica'],
   les:['lupus eritematoso sistemico'], sle:['lupus eritematoso sistemico'], lupus:['lupus eritematoso'],
@@ -813,6 +815,11 @@ K.pmr2012 = {t:'Criterios EULAR/ACR 2012 de polimialgia reumática', alias:'clas
   },
   note:'Criterios provisionales de clasificación; aplicar tras excluir otras causas.',
   src:'Dasgupta B, Ann Rheum Dis 2012;71:484-92.'};
+K.guerne1992 = {t:'Criterios de Guerne y Weisman (1992) de reumatismo palindrómico', alias:'diagnostico palindromico', th:5, max:5, thTxt:'los 5',
+  g:[{t:'Deben cumplirse todos', m:'sum', o:[['Historia de ≥6 meses de episodios breves, de inicio brusco y recurrentes de monoartritis, poliartritis o inflamación de partes blandas periarticulares',1],['Al menos una crisis observada directamente por un médico',1],['Afectación de ≥3 articulaciones en distintas crisis',1],['Radiografías sin lesiones (sin erosiones ni daño articular)',1],['Exclusión razonable de otras artritis recurrentes (gota, EDPC, hidrartrosis intermitente, autoinflamatorias…)',1]]}],
+  yes:'Compatible con reumatismo palindrómico', no:'No cumple todos los criterios',
+  note:'Criterios diagnósticos, no validados formalmente. El ensayo PALABA usó una versión modificada con ≥3 meses de historia en lugar de 6.',
+  src:'Guerne PA, Weisman MH, Am J Med 1992;93:451-60 · modificación: Sanmartí R, Nat Med 2026 (PALABA)'};
 K.gca2022 = {t:'Criterios ACR/EULAR 2022 de arteritis de células gigantes', alias:'clasificacion acg', th:6, max:23,
   gates:[{k:'g', l:'Edad ≥50 años al diagnóstico'}],
   g:[
@@ -1350,6 +1357,58 @@ comp:[
 ]
 }});
 
+R360.fill('rpal', {
+updated:'20 oct 2026', ref:'Sin guía EULAR/ACR/SER · PALABA (Nat Med 2026) · RS Corradini 2021',
+tabs:{
+crit:[
+ {h:'Criterios diagnósticos', b:[{t:'crit', id:'guerne1992'},
+  {t:'t', head:['Hannonen (1987)','Requisito'], rows:[
+   ['A','Crisis recurrentes de inicio brusco de mono/poliartritis o inflamación periarticular, de horas a 1 semana'],
+   ['B','Al menos una crisis observada por un médico'],
+   ['C','Crisis sucesivas en ≥3 articulaciones distintas'],
+   ['D','Sin daño articular entre crisis (Rx normal)'],
+   ['E','Exclusión de otras artritis recurrentes']]}],
+  src:'Guerne PA, Weisman MH, Am J Med 1992 · Hannonen P, Scand J Rheumatol 1987'},
+ {h:'Cómo reconocerlo', b:[{t:'l', x:[
+   'Crisis **bruscas** de dolor, tumefacción y a menudo **eritema**, articulares y periarticulares; duran **horas o pocos días** y se resuelven **sin secuelas**.',
+   'Sobre todo **manos** (MCF, IFP), **muñecas**, **rodillas** y **hombros**; asintomático entre crisis.',
+   '**FR y/o ACPA positivos** en el 39–68 %: son el principal predictor de evolución a AR.',
+   'Reactantes elevados solo durante la crisis. En la ecografía de la crisis predomina la **inflamación extracapsular** (partes blandas, tenosinovitis) más que la sinovitis.',
+   '**Diferencial**: gota y EDPC (buscar cristales), hidrartrosis intermitente, fiebre mediterránea familiar (mutaciones *MEFV* más frecuentes en ACPA negativos), enfermedad de Whipple, Behçet, policondritis, AR de inicio.']}],
+  src:'Mankia K, Emery P, Nat Rev Rheumatol 2019;15:687-95 · Sanmartí R, Expert Rev Clin Immunol 2021;17:375-84 · Sanmartí R, Nat Med 2026'}
+],
+tto:[
+ {n:'3a', h:'Estrategia (sin guía de sociedad)', b:[
+  {t:'alert', x:'**No hay guía EULAR, ACR ni SER** para el reumatismo palindrómico. Lo que sigue se basa en el único ensayo aleatorizado (PALABA, 2026), dos revisiones sistemáticas (sin ensayos previos) y estudios observacionales.'},
+  {t:'steps', x:[
+   {n:'1', t:'Tratar la crisis', x:['[[aine|AINE]] a dosis plena al inicio de la crisis.','Si no responde o está contraindicado: [[gc|glucocorticoide]] oral en pauta corta o infiltración.','Colchicina: respuesta parcial en algunos casos (sobre todo con perfil autoinflamatorio) {pc}.']},
+   {n:'2', t:'Prevenir crisis: antipalúdico', x:['[[hcq]] 5 mg/kg/día {off}: el fármaco más estudiado; reduce la frecuencia de crisis y, en estudios observacionales, retrasa la evolución a AR.','Indicado si las crisis son frecuentes o hay FR/ACPA positivos {pc}.'],
+    w:'Si persisten crisis frecuentes o hay alto riesgo de AR → **3**.'},
+   {n:'3', t:'Crisis persistentes o seropositivo de alto riesgo', x:['[[mtx]] {off}, solo o con HCQ: datos observacionales favorables.','**Seropositivo (FR y/o ACPA) de <3 años de evolución**: [[abatacept]] 125 mg s.c. semanal 1 año y luego cada 2 semanas el 2.º año {off}. En PALABA redujo la evolución a AR frente a HCQ (20,6 % vs 50 % a 24 meses) y mejoró la intensidad de las crisis.','Valorar riesgo-beneficio con el paciente: con HCQ, el 64 % no desarrolló AR a 2 años.']},
+   {n:'4', t:'Si evoluciona a AR', x:['Artritis persistente (>1 semana en la misma articulación) que cumple ACR/EULAR 2010 → tratar como [[e:ar|artritis reumatoide]].']}
+  ]}],
+  src:'Sanmartí R, Nat Med 2026;32:2610-8 (PALABA, abierto, n=70) · Corradini D, Semin Arthritis Rheum 2021;51:266-77 · Kavandi H, Int J Clin Pract 2021;75:e14868 · González-López L, Rheumatology 2000 (antipalúdicos)'},
+ {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[{t:'Crisis', ids:['aine','gc','colchicina']},{t:'Prevención', ids:['hcq','mtx','abatacept']}]}],
+  src:'Fichas técnicas CIMA'}
+],
+seg:[
+ {h:'Qué pedir y cada cuánto', b:[{t:'labs',
+   basic:['Hemograma y bioquímica según el fármaco (HCQ, MTX)','PCR y VSG, idealmente **durante una crisis**'],
+   key:['==FR y ACPA== al diagnóstico (estratifican el riesgo de AR)','==Diario de crisis==: número, duración, intensidad y articulaciones {pc}','==Exploración en busca de sinovitis persistente== {f:cada 3–6 meses los 2–3 primeros años} (es cuando más progresa a AR) {pc}'],
+   other:['**Rx de manos y pies** basal','**Ecografía en crisis** si hay dudas diagnósticas','**Oftalmología** si HCQ (ver ficha)','*MEFV* si ACPA negativo con rasgos autoinflamatorios {pc}']}],
+  src:'Sanmartí R, Nat Med 2026 · Mankia K, Nat Rev Rheumatol 2019 · {pc}'}
+],
+comp:[
+ {h:'Evolución y complicaciones', b:[{t:'t', head:['Evolución','Claves'], rows:[
+   ['Artritis reumatoide','30–60 % en la mayoría de series, sobre todo en los primeros 2–3 años. Mayor riesgo si **FR/ACPA positivos**'],
+   ['Dónde aparece la artritis','La artritis persistente suele aparecer en articulaciones ya afectadas en crisis previas (OR 1,97)'],
+   ['Otras enfermedades','LES y otras conectivopatías, con menos frecuencia'],
+   ['Persistencia o remisión','Una parte sigue con crisis aisladas o remite sin progresar'],
+   ['Toxicidad del tratamiento','Retinopatía por HCQ; glucocorticoides repetidos en crisis']]}],
+  src:'Sanmartí R, Nat Med 2026 · Sahin D, RMD Open 2026;12:e006551 · Kavandi H, Int J Clin Pract 2021'}
+]
+}});
+
 R360.pages.push({
 id:'cribado', title:'Antes de iniciar un FAME o un biológico', kicker:'General', icon:'shield', updated:'11 oct 2026',
 secs:[
@@ -1753,6 +1812,12 @@ add('acg','EULAR 2025',[
  ['[[mtx|Metotrexato]]','Alternativa ahorradora.','**Fuera de ficha técnica** en ACG.']
 ], 'EULAR 2025 · '+FT);
 
+add('rpal','Evidencia (sin guía)',[
+ ['[[hcq|Hidroxicloroquina]]','Primera opción para prevenir crisis (antipalúdicos, revisión sistemática).','Sin indicación en reumatismo palindrómico: **fuera de ficha técnica**.'],
+ ['[[mtx|Metotrexato]]','Opción si persisten las crisis (estudios observacionales).','**Fuera de ficha técnica**.'],
+ ['[[abatacept|Abatacept]]','Seropositivos de reciente comienzo: reduce la evolución a AR frente a HCQ (PALABA 2026).','Solo indicado en AR, AIJ y APs: **fuera de ficha técnica** y sin financiación específica; requiere solicitud de uso fuera de ficha en el hospital.']
+], 'PALABA (Nat Med 2026) · '+FT);
+
 /* fichas de fármacos */
 const D = R.drugs;
 D.mtx.vs = [['Embarazo','Suspender 1–3 meses antes (EULAR 2024)','Anticoncepción hasta 6 meses tras suspender','EULAR'],['Varones','Compatible (EULAR 2024)','Esperar 3 meses','EULAR'],['Indicaciones','También PMR, ACG, LES y ES (guías)','Ficha: AR, AIJ, psoriasis, APs y Crohn; el resto, fuera de ficha','Guías']];
@@ -1777,8 +1842,8 @@ D.alopurinol.vs = [['ERC','Dosis baja inicial y titular hasta objetivo','Máx. 1
 (function(T){
 T.pcr = {n:'Proteína C reactiva', ab:['PCR','CRP'], what:'Reactante de fase aguda. Entra en DAS28-PCR, SDAI, ASDAS, DAPSA y PMR-AS. Se normaliza con tocilizumab, sarilumab y JAKi.', notes:'Unidades: 1 mg/dL = 10 mg/L. En LES, una PCR alta sugiere infección o serositis.', where:[['ar','act'],['espa','act'],['aps','act'],['pmr','seg'],['acg','seg']]};
 T.vsg = {n:'Velocidad de sedimentación globular', ab:['VSG','ESR'], what:'Reactante de fase aguda. Entra en DAS28-VSG y ASDAS-VSG; criterio en ACG (≥50 mm/h).', where:[['ar','act'],['pmr','seg'],['acg','crit']]};
-T.fr = {n:'Factor reumatoide', ab:['FR','RF'], what:'Autoanticuerpo frecuente en AR (≈70–80 %), poco específico. Puntúa en los criterios ACR/EULAR 2010.', where:[['ar','crit'],['aps','crit'],['pmr','crit']]};
-T.acpa = {n:'Anticuerpos antipéptidos citrulinados', ab:['ACPA','anti-CCP','CCP'], what:'Muy específicos de AR; títulos altos se asocian a erosiones y a EPID.', where:[['ar','crit'],['ar','comp'],['pmr','crit']]};
+T.fr = {n:'Factor reumatoide', ab:['FR','RF'], what:'Autoanticuerpo frecuente en AR (≈70–80 %), poco específico. Puntúa en los criterios ACR/EULAR 2010.', where:[['ar','crit'],['aps','crit'],['pmr','crit'],['rpal','seg']]};
+T.acpa = {n:'Anticuerpos antipéptidos citrulinados', ab:['ACPA','anti-CCP','CCP'], what:'Muy específicos de AR; títulos altos se asocian a erosiones y a EPID.', where:[['ar','crit'],['ar','comp'],['pmr','crit'],['rpal','seg']]};
 T.ana = {n:'Anticuerpos antinucleares', ab:['ANA','HEp-2'], what:'Cribado de conectivopatías. Requisito de entrada de los criterios EULAR/ACR 2019 de LES (≥1:80).', where:[['les','crit'],['es','crit']]};
 T.antidna = {n:'Anti-DNA de doble cadena', ab:['anti-dsDNA','antiDNA','anti-DNA'], what:'Específico de LES; sus títulos se correlacionan con la actividad, sobre todo renal. Puntúa en SLEDAI-2K.', where:[['les','crit'],['les','act'],['les','seg']]};
 T.complemento = {n:'Complemento C3 y C4', ab:['C3','C4','CH50'], what:'Su descenso indica consumo por actividad del LES (sobre todo nefritis).', where:[['les','crit'],['les','act'],['les','seg']]};
