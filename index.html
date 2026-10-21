@@ -503,19 +503,24 @@ window.R360 = {
   ],
   drugs:{}, tests:{}, calcs:{}, crits:{}, pages:[],
   drugGroups: [
-    ['csd','FAME sintéticos convencionales'],
+    ['aine','AINE'],
     ['gc','Glucocorticoides'],
-    ['tnf','Anti-TNF'],
-    ['bio','Otros FAME biológicos (AR)'],
-    ['il17','Anti-IL-17'],
-    ['il23','Anti-IL-23'],
-    ['il1223','Anti-IL-12/23'],
-    ['jak','Inhibidores de JAK'],
-    ['otr','Otros (AINE, apremilast)'],
+    ['csd','FAME sintéticos convencionales'],
     ['is','Inmunosupresores'],
+    ['tnf','FAME biológicos · Anti-TNF'],
+    ['bio','FAME biológicos · Anti-IL-6, abatacept y rituximab'],
+    ['il17','FAME biológicos · Anti-IL-17'],
+    ['il23','FAME biológicos · Anti-IL-23'],
+    ['il1223','FAME biológicos · Anti-IL-12/23'],
+    ['il1','Biológicos · Anti-IL-1'],
     ['les','Biológicos en lupus'],
+    ['eos','Biológicos · Anti-IL-5 y anti-CD19'],
+    ['tsd','FAME sintéticos dirigidos · Inhibidores de JAK y de PDE4'],
+    ['gota','Gota (hipouricemiantes y colchicina)'],
     ['vas','Vasculopatía y fibrosis (ES)'],
-    ['gota','Gota']
+    ['oseo','Osteoporosis y metabolismo óseo'],
+    ['dolor','Dolor crónico y fibromialgia'],
+    ['var','Otros (IGIV, anticoagulación, sequedad, profilaxis)']
   ],
   fill(id, data){ const d = this.diseases.find(x=>x.id===id); Object.assign(d, {status:'ok'}, data); }
 };
@@ -1168,11 +1173,11 @@ tto:[
   src:'EULAR 2025 (Smolen JS, Ann Rheum Dis 2026;85:991-1009) · GUIPCAR 2025 (Balsa A, Reumatol Clin 2026) · EMA, arbitraje art. 20 JAKi (2023)'},
  {n:'3b', h:'Fármacos', b:[
   {t:'drugs', x:[
-   {t:'FAME sintéticos convencionales', ids:['mtx','lef','ssz','hcq'], note:{ssz:'fuera de ficha', hcq:'en combinación'}},
    {t:'Glucocorticoides', ids:['gc']},
-   {t:'Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab']},
-   {t:'Otros FAME biológicos', ids:['abatacept','tocilizumab','sarilumab','rituximab']},
-   {t:'Inhibidores de JAK', ids:['tofacitinib','baricitinib','upadacitinib','filgotinib']}]},
+   {t:'FAME sintéticos convencionales', ids:['mtx','lef','ssz','hcq'], note:{ssz:'fuera de ficha', hcq:'en combinación'}},
+   {t:'FAME biológicos · Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab']},
+   {t:'FAME biológicos · Otros', ids:['abatacept','tocilizumab','sarilumab','rituximab']},
+   {t:'FAME sintéticos dirigidos · Inhibidores de JAK', ids:['tofacitinib','baricitinib','upadacitinib','filgotinib']}]},
   {t:'note', x:'En España, la sulfasalazina solo tiene indicación en colitis ulcerosa y enfermedad de Crohn: en AR es uso **fuera de ficha técnica**. Todos los FAMEb están disponibles con biosimilares salvo certolizumab, abatacept y sarilumab.'}],
   src:'Fichas técnicas CIMA (AEMPS), consultadas oct 2026'}
 ],
@@ -1255,10 +1260,10 @@ tto:[
   src:'ASAS-EULAR 2022 (Ramiro S, Ann Rheum Dis 2023;82:19-34) · ESPOGUÍA 2024 (Cañete JD, Reumatol Clin 2025) · Fichas técnicas CIMA'},
  {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[
    {t:'AINE', ids:['aine']},
-   {t:'Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab'], note:{infliximab:'solo r-axSpA'}},
-   {t:'Anti-IL-17', ids:['secukinumab','ixekizumab','bimekizumab']},
-   {t:'Inhibidores de JAK', ids:['upadacitinib','tofacitinib'], note:{tofacitinib:'solo r-axSpA'}},
-   {t:'Artritis periférica', ids:['ssz'], note:{ssz:'fuera de ficha'}}]}],
+   {t:'FAME sintéticos convencionales (artritis periférica)', ids:['ssz'], note:{ssz:'fuera de ficha'}},
+   {t:'FAME biológicos · Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab'], note:{infliximab:'solo r-axSpA'}},
+   {t:'FAME biológicos · Anti-IL-17', ids:['secukinumab','ixekizumab','bimekizumab']},
+   {t:'FAME sintéticos dirigidos · Inhibidores de JAK', ids:['upadacitinib','tofacitinib'], note:{tofacitinib:'solo r-axSpA'}}]}],
   src:'Fichas técnicas CIMA (AEMPS)'}
 ],
 seg:[
@@ -1325,10 +1330,11 @@ tto:[
   ]}],
   src:'EULAR 2023 (Gossec L, Ann Rheum Dis 2024;83:706-19) · GRAPPA 2021 · ESPOGUÍA 2024'},
  {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[
+   {t:'AINE', ids:['aine']},
    {t:'FAME sintéticos convencionales', ids:['mtx','lef','ssz'], note:{ssz:'fuera de ficha'}},
-   {t:'Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab']},
-   {t:'Anti-IL-17', ids:['secukinumab','ixekizumab','bimekizumab']},{t:'Anti-IL-23', ids:['guselkumab','risankizumab']},{t:'Anti-IL-12/23', ids:['ustekinumab']},
-   {t:'Otros', ids:['abatacept','apremilast','tofacitinib','upadacitinib','aine']}]}],
+   {t:'FAME biológicos · Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab']},
+   {t:'FAME biológicos · Anti-IL-17', ids:['secukinumab','ixekizumab','bimekizumab']},{t:'FAME biológicos · Anti-IL-23', ids:['guselkumab','risankizumab']},{t:'FAME biológicos · Anti-IL-12/23', ids:['ustekinumab']},{t:'FAME biológicos · Otros', ids:['abatacept']},
+   {t:'FAME sintéticos dirigidos', ids:['tofacitinib','upadacitinib','apremilast'], note:{apremilast:'inhibidor de PDE4'}}]}],
   src:'Fichas técnicas CIMA (AEMPS). Comprueba la financiación en BIFIMED.'}
 ],
 seg:[
@@ -1799,7 +1805,7 @@ tto:[
  {n:'3a', h:'Transición a adultos (EULAR/PReS 2016)', b:[{t:'l', x:['Empezar en la **adolescencia temprana** (11–14 años) con un **coordinador** y un protocolo escrito.','Documento de traspaso con diagnóstico, tratamientos, complicaciones y vacunas.','Equipos pediátrico y de adultos formados; garantizar la continuidad de los tratamientos.','Hablar de adherencia, anticoncepción, tabaco, alcohol y estudios o trabajo.']}],
   src:'Foster HE, Ann Rheum Dis 2017;76:639-46'},
  {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[
-   {t:'FAMEsc', ids:['mtx','lef','ssz']},{t:'Biológicos', ids:['etanercept','adalimumab','golimumab','abatacept','tocilizumab','secukinumab','ixekizumab']},{t:'JAKi', ids:['tofacitinib','baricitinib','upadacitinib']},{t:'Otros', ids:['aine','gc']}]},
+   {t:'AINE y glucocorticoides', ids:['aine','gc']},{t:'FAME sintéticos convencionales', ids:['mtx','lef','ssz']},{t:'FAME biológicos', ids:['etanercept','adalimumab','golimumab','abatacept','tocilizumab','secukinumab','ixekizumab']},{t:'FAME sintéticos dirigidos · Inhibidores de JAK', ids:['tofacitinib','baricitinib','upadacitinib']}]},
   {t:'note', x:'Indicaciones AIJ en ficha: etanercept (poli/oligo extendida ≥2 años; APs y ERA ≥12 años), adalimumab (poli ≥2 años; ERA ≥6 años; uveítis ≥2 años), abatacept y tocilizumab (poli ≥2 años), golimumab (poli), tofacitinib y baricitinib (poli, APs juvenil; baricitinib también ERA), upadacitinib (poli ≥2 años), secukinumab e ixekizumab (ERA y APs juvenil ≥6 años).'}],
   src:'Fichas técnicas CIMA'}
 ],
@@ -1889,7 +1895,7 @@ tto:[
    {t:'Axial', i:'info', x:'**Anti-TNF monoclonal** ([[adalimumab]], [[infliximab]], [[certolizumab]], [[golimumab]]). JAKi como opción ([[upadacitinib]] cubre EspAax, colitis ulcerosa y Crohn). Vedolizumab y ustekinumab **no** sirven para lo axial.'},
    {t:'Evitar', i:'alert', x:'[[etanercept|Etanercept]]: inflamación intestinal paradójica. Anti-IL-17 ([[secukinumab]], [[ixekizumab]], [[bimekizumab]]): las fichas **no los recomiendan** en EII.'}]}],
   src:'Gordon H (ECCO), J Crohns Colitis 2024;18:1-37 · Ramiro S (ASAS-EULAR), Ann Rheum Dis 2023;82:19-34 · Fichas técnicas CIMA'},
- {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[{t:'Anti-TNF monoclonales', ids:['adalimumab','infliximab','certolizumab','golimumab']},{t:'Otros', ids:['upadacitinib','ustekinumab','ssz','mtx','aine','gc']}]}], src:'Fichas técnicas CIMA'}
+ {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[{t:'AINE y glucocorticoides', ids:['aine','gc']},{t:'FAME sintéticos convencionales', ids:['ssz','mtx']},{t:'FAME biológicos · Anti-TNF monoclonales', ids:['adalimumab','infliximab','certolizumab','golimumab']},{t:'FAME biológicos · Anti-IL-12/23', ids:['ustekinumab']},{t:'FAME sintéticos dirigidos', ids:['upadacitinib']}]}], src:'Fichas técnicas CIMA'}
 ],
 seg:[
  {h:'Qué pedir y cada cuánto', b:[{t:'labs',
@@ -3185,22 +3191,22 @@ D.rituximab = {n:'Rituximab', ab:['RTX'], g:'bio', cls:'Anti-CD20', br:'MabThera
 const JAK_ALERT = 'EMA/AEMPS 2023: en **≥65 años**, fumadores o exfumadores de larga evolución, **riesgo cardiovascular** o **riesgo de neoplasia**, usar solo si no hay alternativa adecuada. Precaución si hay riesgo de **TEV**. Dosis más baja posible en grupos de riesgo.';
 const JAK_MON = ['Hemograma (linfocitos, neutrófilos, hemoglobina) basal y periódico','**Lípidos** a las ~8–12 semanas','ALT/AST periódicas','Exploración cutánea (cáncer no melanoma)'];
 const JAK_AE = ['**Herpes zóster** (vacunar antes con Shingrix)','Infecciones graves','Eventos cardiovasculares mayores, TEV','Neoplasias (pulmón, linfoma, piel)','Dislipemia, citopenias, elevación de CK'];
-D.tofacitinib = {n:'Tofacitinib', ab:['TOFA'], g:'jak', cls:'Inhibidor de JAK', br:'Xeljanz 5 mg', alert:JAK_ALERT,
+D.tofacitinib = {n:'Tofacitinib', ab:['TOFA'], g:'tsd', cls:'FAME sintético dirigido · inhibidor de JAK', br:'Xeljanz 5 mg', alert:JAK_ALERT,
   dose:[['AR','5 mg/12 h (con MTX o en monoterapia)'],['APs','5 mg/12 h **en combinación con MTX**'],['EspAax radiográfica','5 mg/12 h (no aprobado en nr-axSpA)']],
   ren:'**FG <30: 5 mg/24 h**', hep:'Moderada: 5 mg/24 h · grave: contraindicado', preg:'**Contraindicado**; anticoncepción hasta ≥4 semanas tras la última dosis', lact:'Contraindicado',
   mon:JAK_MON.concat(['Linfocitos <750: interrumpir; <500: suspender']), ae:JAK_AE,
   ci:['TB activa, infecciones graves','Insuficiencia hepática grave','Embarazo y lactancia'], int:['Inhibidores potentes de CYP3A4 (ketoconazol): 5 mg/24 h','Inductores potentes (rifampicina): pérdida de eficacia'],
   src:'Ficha técnica Xeljanz (CIMA) · EMA 2023'};
-D.baricitinib = {n:'Baricitinib', ab:['BARI'], g:'jak', cls:'Inhibidor de JAK', br:'Olumiant 2 y 4 mg', alert:JAK_ALERT,
+D.baricitinib = {n:'Baricitinib', ab:['BARI'], g:'tsd', cls:'FAME sintético dirigido · inhibidor de JAK', br:'Olumiant 2 y 4 mg', alert:JAK_ALERT,
   dose:[['AR','**4 mg/día**; 2 mg si ≥75 años, infecciones recurrentes o remisión mantenida']],
   ren:'**ClCr 30–60: 2 mg/día** · <30: no recomendado', hep:'Grave: no recomendado', preg:'**Contraindicado**', lact:'Contraindicado',
   mon:JAK_MON, ae:JAK_AE, ci:['Embarazo'], int:['Inhibidores potentes de OAT3 (probenecid): 2 mg/día'], src:'Ficha técnica Olumiant (CIMA)'};
-D.upadacitinib = {n:'Upadacitinib', ab:['UPA'], g:'jak', cls:'Inhibidor de JAK (selectivo JAK1)', br:'Rinvoq 15, 30 y 45 mg', alert:JAK_ALERT,
+D.upadacitinib = {n:'Upadacitinib', ab:['UPA'], g:'tsd', cls:'FAME sintético dirigido · inhibidor de JAK (selectivo JAK1)', br:'Rinvoq 15, 30 y 45 mg', alert:JAK_ALERT,
   dose:[['AR, APs, EspAax (r y nr)','**15 mg/día**'],['ACG','**15 mg/día** con descenso de glucocorticoides; puede mantenerse en monoterapia (no en monoterapia para recaídas agudas)']],
   ren:'FG 15–30: usar con precaución (15 mg) · <15: no recomendado', hep:'Grave (Child-Pugh C): contraindicado', preg:'**Contraindicado**; anticoncepción hasta 4 semanas después', lact:'Contraindicado',
   mon:JAK_MON, ae:JAK_AE, ci:['TB activa, infecciones graves','Insuficiencia hepática grave','Embarazo'], int:['Inhibidores potentes de CYP3A4: precaución','Inductores potentes: no recomendado'],
   notes:'ACG: financiado con condiciones (ver ACG).', src:'Ficha técnica Rinvoq (CIMA) · BIFIMED'};
-D.filgotinib = {n:'Filgotinib', ab:['FILGO'], g:'jak', cls:'Inhibidor de JAK (preferente JAK1)', br:'Jyseleca 100 y 200 mg', alert:JAK_ALERT,
+D.filgotinib = {n:'Filgotinib', ab:['FILGO'], g:'tsd', cls:'FAME sintético dirigido · inhibidor de JAK (preferente JAK1)', br:'Jyseleca 100 y 200 mg', alert:JAK_ALERT,
   dose:[['AR','**200 mg/día**; en ≥75 años, iniciar con 100 mg']],
   ren:'**ClCr 15–60: 100 mg/día** · <15: no recomendado', hep:'Grave: no recomendado', preg:'**Contraindicado**', lact:'Contraindicado', male:'Datos preclínicos de alteración de la espermatogénesis: informar',
   mon:JAK_MON, ae:JAK_AE, ci:['Embarazo'], src:'Ficha técnica Jyseleca (CIMA)'};
@@ -3231,11 +3237,11 @@ D.guselkumab = {n:'Guselkumab', ab:['GUS'], g:'il23', tag:'anti-IL-23', cls:'Ant
 D.risankizumab = {n:'Risankizumab', ab:['RZB'], g:'il23', tag:'anti-IL-23', cls:'Anti-IL-23 (p19)', br:'Skyrizi 150 mg',
   dose:[['APs','150 mg s.c. semanas 0 y 4, luego cada 12 semanas']],
   ren:'Sin datos', hep:'Sin datos', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:['Infecciones respiratorias altas','Cefalea, cansancio'], ci:['Infección grave activa'], notes:'**No eficaz en afectación axial.**', src:'Ficha técnica Skyrizi (CIMA)'};
-D.apremilast = {n:'Apremilast', ab:['APRE'], g:'otr', cls:'Inhibidor de PDE4', br:'Otezla 10, 20 y 30 mg',
+D.apremilast = {n:'Apremilast', ab:['APRE'], g:'tsd', cls:'FAME sintético dirigido · inhibidor de PDE4', br:'Otezla 10, 20 y 30 mg',
   dose:[['APs','Titulación en 5 días hasta **30 mg/12 h**']], ren:'**ClCr <30: 30 mg/24 h**', hep:'Sin ajuste',
   preg:'**Contraindicado**', lact:'No recomendado', mon:['Peso','Estado de ánimo (depresión, ideación suicida)','No requiere analítica específica según ficha'],
   ae:['Diarrea, náuseas (primeras semanas)','Pérdida de peso','Cefalea','Depresión'], ci:['Embarazo'], int:['Inductores potentes de CYP3A4 (rifampicina): no recomendado'], src:'Ficha técnica Otezla (CIMA)'};
-D.aine = {n:'AINE', ab:['antiinflamatorios no esteroideos','etoricoxib','naproxeno','celecoxib','ibuprofeno'], g:'otr', cls:'Antiinflamatorio no esteroideo', br:'Naproxeno, ibuprofeno, diclofenaco, celecoxib, etoricoxib (Arcoxia) y otros',
+D.aine = {n:'AINE', ab:['antiinflamatorios no esteroideos','etoricoxib','naproxeno','celecoxib','ibuprofeno'], g:'aine', cls:'Antiinflamatorio no esteroideo', br:'Naproxeno, ibuprofeno, diclofenaco, celecoxib, etoricoxib (Arcoxia) y otros',
   dose:[['Naproxeno','500 mg/12 h'],['Ibuprofeno','400–600 mg/8 h'],['Celecoxib','200–400 mg/día'],['Etoricoxib','EspA y AR: 60 mg/día (hasta 90 mg) · crisis de gota: 120 mg/día, máx. 8 días'],['EspA','Dosis plena; continuo solo si lo exigen los síntomas']],
   ren:'Evitar si FG <30; precaución en ERC, IC o con IECA/ARA-II y diuréticos', hep:'Evitar en hepatopatía grave',
   preg:'Evitar desde la semana 20; **contraindicados en el 3.er trimestre**', lact:'Ibuprofeno y naproxeno compatibles',
@@ -3268,7 +3274,7 @@ D.tacrolimus = {n:'Tacrolimus', ab:['TAC','inhibidor de calcineurina'], g:'is', 
   ren:'Nefrotóxico: vigilar FG', hep:'Reducir dosis en insuficiencia grave', preg:'Compatible (EULAR 2024)', lact:'Compatible',
   mon:['Niveles valle','Creatinina, TA, glucemia, potasio, magnesio'], ae:['Nefrotoxicidad','HTA, hiperglucemia','Temblor, cefalea','Hiperpotasemia, hipomagnesemia'],
   int:['Múltiples interacciones por CYP3A4 (azoles, macrólidos, diltiazem, rifampicina)'], src:'Ficha técnica Prograf (CIMA) · KDIGO 2024'};
-D.voclosporina = {n:'Voclosporina', ab:['VCS'], g:'les', cls:'Inhibidor de calcineurina', br:'Lupkynis 7,9 mg',
+D.voclosporina = {n:'Voclosporina', ab:['VCS'], g:'is', cls:'Inhibidor de calcineurina', br:'Lupkynis 7,9 mg',
   dose:[['Nefritis lúpica III, IV o V activa','**23,7 mg/12 h** (3 cápsulas) con MMF y glucocorticoides; evaluar el beneficio a partir de las 24 semanas'],['Ajuste por FG','Si cae <60 y desciende ≥30 %: suspender y reiniciar a 7,9 mg/12 h · descenso 20–30 %: bajar 7,9 mg/12 h · ≤20 %: mantener']],
   ren:'FG basal 30–45: solo si el beneficio supera el riesgo · **<30: no recomendado**', hep:'Grave: evitar', preg:'Evitar (datos limitados)', lact:'No recomendado',
   mon:['**FG** basal, cada 2 semanas el primer mes y luego cada 4 semanas','TA, potasio'],
@@ -3336,7 +3342,7 @@ D.benzbromarona = {n:'Benzbromarona', ab:['uricosúrico'], g:'gota', cls:'Uricos
   ren:'Requiere ClCr >20 mL/min', hep:'**Contraindicada en insuficiencia hepática**', preg:'Contraindicada', lact:'Contraindicada',
   mon:['**Transaminasas** periódicas (hepatotoxicidad grave)','Hidratación ≥2 L/día; valorar alcalinizar la orina {pc}'],
   ae:['Hepatotoxicidad (potencialmente grave)','Litiasis úrica','Molestias digestivas'], ci:['Insuficiencia hepática','Litiasis úrica','Uricosuria >700 mg/24 h'], src:'Ficha técnica Urinorm (CIMA) · Nota AEMPS 2004/02'};
-D.canakinumab = {n:'Canakinumab', ab:['anti-IL-1'], g:'gota', cls:'Anti-IL-1β', br:'Ilaris 150 mg',
+D.canakinumab = {n:'Canakinumab', ab:['anti-IL-1'], g:'il1', cls:'Anti-IL-1β', br:'Ilaris 150 mg',
   alert:'Indicación en gota autorizada pero **sin financiación del SNS** (BIFIMED, oct 2026).',
   dose:[['Crisis de gota','**150 mg s.c. dosis única** en adultos con ≥3 crisis en 12 meses, cuando AINE y colchicina están contraindicados, no se toleran o no responden y no son adecuados los ciclos repetidos de GC. No repetir antes de 12 semanas']],
   ren:'Sin ajuste', hep:'Sin datos', preg:'Datos limitados', lact:'Datos limitados',
@@ -3346,7 +3352,6 @@ D.canakinumab = {n:'Canakinumab', ab:['anti-IL-1'], g:'gota', cls:'Anti-IL-1β',
 /* Fichas de fármacos (3/3). Fuente principal: fichas técnicas CIMA (AEMPS) y BIFIMED, oct 2026. Embarazo: EULAR 2024 */
 (function(R){
 const D = R.drugs;
-R.drugGroups.push(['il1','Anti-IL-1'],['eos','Anti-IL-5 y anti-CD19'],['oseo','Osteoporosis y metabolismo óseo'],['dolor','Dolor crónico y fibromialgia'],['var','Otros (IGIV, anticoagulación, sequedad, profilaxis)']);
 
 D.anakinra = {n:'Anakinra', g:'il1', cls:'Antagonista del receptor de IL-1', br:'Kineret 100 mg jeringa precargada',
   dose:[['Still (ESIA y AIJ sistémica)','**100 mg/día s.c.** si ≥50 kg; 1–2 mg/kg/día si <50 kg. Reevaluar al mes'],['FMF','100 mg/día (niños 1–2 mg/kg/día, hasta 4 mg/kg/día). Financiada solo en 2.ª línea (no respuesta o intolerancia a colchicina)'],['SAM {off}','Dosis altas: >4 mg/kg/día en niños, 100 mg/12 h (o más) en adultos'],['AR','100 mg/día con MTX (poco usado)'],['EDPC refractaria {off}','100 mg/día 3 días en la crisis {pc}']],
@@ -3410,7 +3415,7 @@ D.inebilizumab = {n:'Inebilizumab', g:'eos', cls:'Anti-CD19 (depleción de linfo
   ci:['Infección activa grave, TB activa, VHB activa','LMP previa','Inmunodepresión grave'], int:['Vacunas atenuadas ≥4 semanas antes'],
   notes:'Financiación restringida: ER-IgG4 confirmada con alto riesgo de recaída o daño grave, o alto riesgo de complicaciones por GC o inmunosupresores. Ensayo MITIGATE: brotes 10 % vs 60 % con placebo (Stone JH, NEJM 2025).', src:'Ficha técnica Uplizna (CIMA) · BIFIMED oct 2026'};
 
-D.ruxolitinib = {n:'Ruxolitinib', g:'jak', cls:'Inhibidor de JAK1/2', br:'Jakavi 5, 10, 15 y 20 mg',
+D.ruxolitinib = {n:'Ruxolitinib', g:'tsd', cls:'FAME sintético dirigido · inhibidor de JAK1/2', br:'Jakavi 5, 10, 15 y 20 mg',
   alert:'En España solo indicado en mielofibrosis, policitemia vera y EICH: en VEXAS es **fuera de ficha técnica**.',
   dose:[['VEXAS {off}','**10–20 mg/12 h** (guía ACR 2025); empezar más bajo si citopenias {pc}']],
   ren:'ClCr 15–29: reducir 50 %', hep:'Insuficiencia hepática: reducir 50 %',
@@ -3572,6 +3577,8 @@ D.aza.dose.push(['Miositis (DM, PM)','2–3 mg/kg/día (indicación en ficha)'],
 D.tacrolimus.dose.push(['Miositis y EPID asociada {off}','Niveles valle 5–10 ng/mL {pc}']);
 D.mmf.dose.push(['Miositis, EPID de conectivopatías, ER-IgG4 {off}','2–3 g/día']);
 
+/* orden dentro de FAME sintéticos dirigidos: JAKi y después apremilast */
+{ const a = D.apremilast; delete D.apremilast; D.apremilast = a; }
 })(window.R360);
 
 /* Guía frente a España: cuando la guía y la ficha técnica o la financiación españolas no coinciden, se muestran ambas */
@@ -3902,7 +3909,7 @@ const R = window.R360;
 const $ = (s, el=document) => el.querySelector(s);
 const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const VERSION = "1.2.2";
+const VERSION = "1.2.3";
 const UPDATED = '21 oct 2026';
 
 /* ---------------- almacenamiento local (solo comodidades del usuario) ---------------- */
