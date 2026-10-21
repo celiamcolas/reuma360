@@ -507,7 +507,9 @@ window.R360 = {
     ['gc','Glucocorticoides'],
     ['tnf','Anti-TNF'],
     ['bio','Otros FAME biológicos (AR)'],
-    ['il','Anti-IL-17, anti-IL-23 y anti-IL-12/23'],
+    ['il17','Anti-IL-17'],
+    ['il23','Anti-IL-23'],
+    ['il1223','Anti-IL-12/23'],
     ['jak','Inhibidores de JAK'],
     ['otr','Otros (AINE, apremilast)'],
     ['is','Inmunosupresores'],
@@ -1325,7 +1327,7 @@ tto:[
  {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[
    {t:'FAME sintéticos convencionales', ids:['mtx','lef','ssz'], note:{ssz:'fuera de ficha'}},
    {t:'Anti-TNF', ids:['adalimumab','etanercept','infliximab','certolizumab','golimumab']},
-   {t:'Anti-IL-17, anti-IL-23 y anti-IL-12/23', ids:['secukinumab','ixekizumab','bimekizumab','ustekinumab','guselkumab','risankizumab']},
+   {t:'Anti-IL-17', ids:['secukinumab','ixekizumab','bimekizumab']},{t:'Anti-IL-23', ids:['guselkumab','risankizumab']},{t:'Anti-IL-12/23', ids:['ustekinumab']},
    {t:'Otros', ids:['abatacept','apremilast','tofacitinib','upadacitinib','aine']}]}],
   src:'Fichas técnicas CIMA (AEMPS). Comprueba la financiación en BIFIMED.'}
 ],
@@ -3210,23 +3212,23 @@ const IL_MON = ['Hemograma y bioquímica cada 3–6 meses {pc}','Vigilar infecci
 const IL17_AE = ['Candidiasis mucocutánea','Infecciones respiratorias altas','**Debut o empeoramiento de EII**','Reacción local'];
 const BIO_PREG = 'Datos limitados: suspender antes de la concepción salvo que no haya alternativa (EULAR 2024)';
 
-D.secukinumab = {n:'Secukinumab', ab:['SEC'], g:'il', cls:'Anti-IL-17A', br:'Cosentyx 75, 150 y 300 mg',
+D.secukinumab = {n:'Secukinumab', ab:['SEC'], g:'il17', tag:'anti-IL-17A', cls:'Anti-IL-17A', br:'Cosentyx 75, 150 y 300 mg',
   dose:[['APs','150 mg s.c. semanas 0–4 y luego mensual; **300 mg** si psoriasis moderada-grave o respuesta insuficiente a anti-TNF'],['EspAax radiográfica','150 mg semanas 0–4 y luego mensual; hasta 300 mg según respuesta'],['EspAax no radiográfica','150 mg mensual (con o sin dosis de carga)']],
   ren:'Sin ajuste', hep:'Sin datos', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:IL17_AE, ci:['Infección grave activa'], int:['Precaución si EII'], src:'Ficha técnica Cosentyx (CIMA)'};
-D.ixekizumab = {n:'Ixekizumab', ab:['IXE'], g:'il', cls:'Anti-IL-17A', br:'Taltz 80 mg',
+D.ixekizumab = {n:'Ixekizumab', ab:['IXE'], g:'il17', tag:'anti-IL-17A', cls:'Anti-IL-17A', br:'Taltz 80 mg',
   dose:[['APs','160 mg s.c. y luego 80 mg cada 4 semanas (con psoriasis moderada-grave: pauta de psoriasis)'],['EspAax (r y nr)','160 mg s.c. y luego 80 mg cada 4 semanas']],
   ren:'Sin ajuste', hep:'Sin datos', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:IL17_AE, ci:['Infección grave activa'], src:'Ficha técnica Taltz (CIMA)'};
-D.bimekizumab = {n:'Bimekizumab', ab:['BKZ','BIME'], g:'il', cls:'Anti-IL-17A y IL-17F', br:'Bimzelx 160 y 320 mg',
+D.bimekizumab = {n:'Bimekizumab', ab:['BKZ','BIME'], g:'il17', tag:'anti-IL-17A/F', cls:'Anti-IL-17A y IL-17F', br:'Bimzelx 160 y 320 mg',
   dose:[['APs','160 mg s.c. cada 4 semanas. Con psoriasis moderada-grave: 320 mg cada 4 semanas hasta la semana 16, luego cada 8 semanas'],['EspAax (r y nr)','160 mg s.c. cada 4 semanas'],['Sin respuesta','Valorar suspender si no hay respuesta a las 16 semanas']],
   ren:'Sin ajuste', hep:'Sin ajuste', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:['**Candidiasis oral** (frecuente)'].concat(IL17_AE.slice(1)), ci:['Infección grave activa','EII activa: precaución'],
   notes:'Comprueba la financiación y condiciones en BIFIMED.', src:'Ficha técnica Bimzelx (CIMA)'};
-D.ustekinumab = {n:'Ustekinumab', ab:['UST'], g:'il', cls:'Anti-IL-12/23', br:'Stelara y biosimilares',
+D.ustekinumab = {n:'Ustekinumab', ab:['UST'], g:'il1223', tag:'anti-IL-12/23', cls:'Anti-IL-12/23', br:'Stelara y biosimilares',
   dose:[['APs','45 mg s.c. semanas 0 y 4, luego cada 12 semanas (90 mg si >100 kg)']],
   ren:'Sin datos', hep:'Sin datos', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:['Infecciones respiratorias altas','Cefalea, reacción local'], ci:['Infección grave activa'], notes:'**No eficaz en afectación axial.** Útil si EII.', src:'Ficha técnica Stelara (CIMA)'};
-D.guselkumab = {n:'Guselkumab', ab:['GUS'], g:'il', cls:'Anti-IL-23 (p19)', br:'Tremfya 100 mg',
+D.guselkumab = {n:'Guselkumab', ab:['GUS'], g:'il23', tag:'anti-IL-23', cls:'Anti-IL-23 (p19)', br:'Tremfya 100 mg',
   dose:[['APs','100 mg s.c. semanas 0 y 4, luego cada 8 semanas (cada 4 semanas si alto riesgo de daño articular)']],
   ren:'Sin datos', hep:'Sin datos', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:['Infecciones respiratorias altas','Elevación de transaminasas (rara)'], ci:['Infección grave activa'], notes:'**No eficaz en afectación axial.** Útil si EII o psoriasis extensa.', src:'Ficha técnica Tremfya (CIMA)'};
-D.risankizumab = {n:'Risankizumab', ab:['RZB'], g:'il', cls:'Anti-IL-23 (p19)', br:'Skyrizi 150 mg',
+D.risankizumab = {n:'Risankizumab', ab:['RZB'], g:'il23', tag:'anti-IL-23', cls:'Anti-IL-23 (p19)', br:'Skyrizi 150 mg',
   dose:[['APs','150 mg s.c. semanas 0 y 4, luego cada 12 semanas']],
   ren:'Sin datos', hep:'Sin datos', preg:BIO_PREG, lact:'Datos limitados', mon:IL_MON, ae:['Infecciones respiratorias altas','Cefalea, cansancio'], ci:['Infección grave activa'], notes:'**No eficaz en afectación axial.**', src:'Ficha técnica Skyrizi (CIMA)'};
 D.apremilast = {n:'Apremilast', ab:['APRE'], g:'otr', cls:'Inhibidor de PDE4', br:'Otezla 10, 20 y 30 mg',
@@ -3900,7 +3902,7 @@ const R = window.R360;
 const $ = (s, el=document) => el.querySelector(s);
 const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const VERSION = "1.2.1";
+const VERSION = "1.2.2";
 const UPDATED = '21 oct 2026';
 
 /* ---------------- almacenamiento local (solo comodidades del usuario) ---------------- */
@@ -4045,7 +4047,7 @@ function renderBlock(b, ctx){
     }
     case 'steps': return `<ol class="steps">${b.x.map((s,i)=>`<li class="step"><span class="num">${esc(s.n||String(i+1))}</span><div class="box"><h4>${fmt(s.t)}</h4>${Array.isArray(s.x)?renderListSafe(s.x):`<div>${fmt(s.x)}</div>`}</div>${s.w?`<div class="when">${ic('turn')}<div>${fmt(s.w)}</div></div>`:'<div style="height:10px"></div>'}</li>`).join('')}</ol>`;
     case 'cards': return `<div class="cards">${b.x.map(c=>`<div class="dcard"><h4>${c.i?ic(c.i):''}${fmt(c.t)}</h4>${c.rows?`<div class="lv">${c.rows.map(([k,v])=>`<span class="k">${esc(k)}</span><div>${fmt(v)}</div>`).join('')}</div>`:''}${c.x?(Array.isArray(c.x)?renderListSafe(c.x):`<div class="small">${fmt(c.x)}</div>`):''}</div>`).join('')}</div>`;
-    case 'drugs': return b.x.map(g=>`<div class="dgroup">${g.t?`<h4>${esc(g.t)}</h4>`:''}<div class="druglinks">${g.ids.map(id=>{const d=DRUGS[id]; if(!d) return ''; return `<a href="#f.${id}">${ic('pill')}${esc(d.n)}${g.note&&g.note[id]?`<span class="muted small">· ${esc(g.note[id])}</span>`:''}</a>`;}).join('')}</div></div>`).join('');
+    case 'drugs': return b.x.map(g=>`<div class="dgroup">${g.t?`<h4>${esc(g.t)}</h4>`:''}<div class="druglinks">${g.ids.map(id=>{const d=DRUGS[id]; if(!d) return ''; return `<a href="#f.${id}">${ic('pill')}${esc(d.n)}${d.tag?` <span class="muted small">(${esc(d.tag)})</span>`:''}${g.note&&g.note[id]?`<span class="muted small">· ${esc(g.note[id])}</span>`:''}</a>`;}).join('')}</div></div>`).join('');
     case 'labs': return `<div class="labs">
       ${b.basic?`<div class="labbox"><h4>${ic('flask')}Analítica básica</h4>${renderListSafe(b.basic)}</div>`:''}
       ${b.key?`<div class="labbox key"><h4>${ic('star')}Parámetros específicos</h4>${renderListSafe(b.key)}</div>`:''}
