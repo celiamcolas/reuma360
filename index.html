@@ -459,6 +459,7 @@ window.R360 = {
     {id:'saf', name:'Síndrome antifosfolípido', short:'SAF', fam:'conect', aliases:['antifosfolipido','APS','Hughes']},
     {id:'sjogren', name:'Enfermedad de Sjögren', short:'SjD', fam:'conect', aliases:['Sjogren','sicca','síndrome de Sjögren','sindrome de sjogren','SS']},
     {id:'es', name:'Esclerosis sistémica', short:'ES', fam:'conect', aliases:['esclerodermia','SSc','ESc']},
+    {id:'fe', name:'Fascitis eosinofílica', short:'FE', fam:'conect', aliases:['Shulman','fascitis de Shulman','fascitis eosinofilica']},
     {id:'emtc', name:'Enfermedad mixta del tejido conectivo', short:'EMTC', fam:'conect', aliases:['Sharp','MCTD']},
     {id:'cti', name:'Conectivopatía indiferenciada', short:'ETCI', fam:'conect', aliases:['UCTD','indiferenciada']},
     {id:'dm', name:'Dermatomiositis', short:'DM', fam:'conect', aliases:['miositis','miopatia inflamatoria','IIM','anti-MDA5','anti-TIF1']},
@@ -792,7 +793,7 @@ K.ssc2013 = {t:'Criterios ACR/EULAR 2013 de esclerosis sistémica', alias:'clasi
    {t:'Afectación pulmonar', m:'max', o:[['Hipertensión arterial pulmonar',2],['Enfermedad pulmonar intersticial',2]]},
    {t:'Autoanticuerpos', m:'max', o:[['Anticentrómero',3],['Anti-Scl-70 (antitopoisomerasa I)',3],['Anti-RNA polimerasa III',3]]}],
   yes:'Clasifica como ES (≥9)',
-  note:'No aplicar si el engrosamiento respeta los dedos o si otro trastorno lo explica mejor (fibrosis sistémica nefrogénica, morfea generalizada, fascitis eosinofílica, escleredema, escleromixedema, EICH, queiroartropatía diabética…).',
+  note:'No aplicar si el engrosamiento respeta los dedos o si otro trastorno lo explica mejor (fibrosis sistémica nefrogénica, morfea generalizada, [[e:fe|fascitis eosinofílica]], escleredema, escleromixedema, EICH, queiroartropatía diabética…).',
   src:'van den Hoogen F, Ann Rheum Dis 2013;72:1747-55.'};
 K.gout2015 = {t:'Criterios ACR/EULAR 2015 de gota', alias:'clasificacion gota', th:8, max:23,
   gates:[{k:'g', l:'≥1 episodio de tumefacción, dolor o hipersensibilidad en articulación periférica o bursa'}],
@@ -1106,6 +1107,15 @@ K.resnick = {t:'Criterios de Resnick y Niwayama (1976) de DISH', alias:'dish for
   g:[{t:'Deben cumplirse los 3', m:'sum', o:[['Calcificación u osificación continua de la cara anterolateral de ≥4 vértebras contiguas (sobre todo dorsales)',1],['Altura discal relativamente conservada, sin discopatía degenerativa importante',1],['Sin anquilosis interapofisaria ni erosión, esclerosis o fusión sacroilíaca',1]]}],
   th:3, max:3, thTxt:'los 3', yes:'Cumple criterios de DISH',
   src:'Resnick D, Niwayama G, Radiology 1976;119:559-68'};
+
+K.pinal2014 = {t:'Criterios propuestos de Pinal-Fernández (2014) de fascitis eosinofílica', alias:'fascitis eosinofilica shulman',
+  gates:[{k:'x', l:'Sin diagnóstico de esclerosis sistémica (exclusión)'}],
+  g:[{t:'Mayores', m:'sum', o:[['Tumefacción, induración y engrosamiento de la piel y el tejido subcutáneo, simétricos o no, difusos (extremidades, tronco, abdomen) o localizados (extremidades)',1],['Engrosamiento de la fascia con acúmulo de linfocitos y macrófagos, con o sin infiltrado eosinofílico (biopsia en cuña de espesor completo)',1]]},
+     {t:'Menores', m:'sum', o:[['Eosinofilia >0,5 × 10⁹/L',1],['Hipergammaglobulinemia >1,5 g/L',1],['Debilidad muscular y/o aldolasa elevada',1],['Signo del surco y/o piel de naranja',1],['Fascia hiperintensa en RM potenciada en T2',1]]}],
+  custom:({groupScores, gatesOk})=>{ const M = groupScores[0].s, m = groupScores[1].s; const met = gatesOk && (M===2 || (M===1 && m>=2));
+    return {l:met?'rem':(gatesOk?'mod':'na'), v:`${M} + ${m}`, t:!gatesOk?'Antes, descartar esclerosis sistémica':(met?'Compatible con fascitis eosinofílica':'No cumple criterios'), d:'Los 2 mayores, o 1 mayor + ≥2 menores.'}; },
+  note:'Criterios diagnósticos propuestos, no validados formalmente. Los criterios japoneses (Jinnin 2018) exigen induración simétrica en placa de las extremidades, sin Raynaud, más biopsia o RM con engrosamiento de la fascia.',
+  src:'Pinal-Fernandez I, Autoimmun Rev 2014;13:379-82 · Jinnin M, J Dermatol 2018;45:881-90'};
 })(window.R360);
 
 R360.fill('ar', {
@@ -2155,6 +2165,52 @@ comp:[
    ['Hipófisis','Hipopituitarismo'],
    ['Toxicidad por GC','Frecuente: pacientes mayores y diabéticos']]}],
   src:'{pc}'}
+]
+}});
+
+R360.fill('fe', {
+updated:'21 oct 2026', ref:'Sin guía EULAR/ACR · guía japonesa 2018 (Jinnin) · revisiones 2023-2026 y cohortes',
+tabs:{
+crit:[
+ {h:'Criterios', b:[{t:'crit', id:'pinal2014'}]},
+ {h:'Cómo reconocerla', b:[
+  {t:'l', x:['Tumefacción dolorosa y luego **induración en placa** simétrica de **antebrazos y piernas** (a veces tronco), con **piel de naranja** y **signo del surco** (depresión a lo largo de las venas al elevar el miembro).','**Respeta manos, pies y cara**; **sin Raynaud**, sin esclerodactilia ni capilaroscopia alterada (clave frente a la [[e:es|ES]]).','A menudo tras **ejercicio intenso**; otros desencadenantes: fármacos (sobre todo **anti-PD-1**), infecciones, neoplasias.','Analítica: **eosinofilia** (frecuente al inicio; puede faltar en fases crónicas), hipergammaglobulinemia, VSG alta, aldolasa elevada con CK normal.','Asocia **morfea** en ≈30–40 % y contracturas articulares, artritis o síndrome del túnel carpiano.']},
+  {t:'h', x:'Diagnóstico'},
+  {t:'l', x:['**RM** de los miembros afectados (fascia engrosada e hiperintensa en T2/STIR, con realce): apoya el diagnóstico y guía la biopsia. La ecografía también ayuda.','**Biopsia en cuña de espesor completo** (piel, tejido subcutáneo, fascia y músculo): patrón oro.','Diferencial: ES, morfea profunda, EICH esclerodermiforme, síndrome eosinofilia-mialgia y síndrome del aceite tóxico, síndrome hipereosinofílico, GEPA, linfoma T.']}],
+  src:'Pinal-Fernandez I, Autoimmun Rev 2014 · Mertens JS, Am J Clin Dermatol 2017;18:491-512 · Revisión Med Clin (Barc) 2025'}
+],
+act:[
+ {h:'Actividad y respuesta', b:[{t:'p', x:'No hay índice validado. Seguir la extensión e induración cutánea (escala de Rodnan modificada adaptada {pc}), el rango de movilidad articular, eosinófilos, VSG y aldolasa; la RM, la ecografía o la PET-TC muestran la respuesta.'}],
+  src:'Curr Treatm Opt Rheumatol 2025 · {pc}'}
+],
+tto:[
+ {n:'3a', h:'Estrategia (sin guía de sociedad; cohortes y revisiones)', b:[
+  {t:'alert', x:'No hay guía EULAR ni ACR ni ensayos aleatorizados. Lo siguiente se basa en cohortes (Francia, EE. UU., Países Bajos), la guía japonesa y revisiones recientes.'},
+  {t:'steps', x:[
+   {n:'1', t:'Inducción', x:['[[gc|Prednisona]] 0,5–1 mg/kg/día con descenso lento.','**Pulsos de metilprednisolona** al inicio en formas extensas: se asociaron a mejor respuesta y menos necesidad de inmunosupresor (cohorte francesa).','Reposo relativo del ejercicio intenso; **fisioterapia precoz** para prevenir contracturas.']},
+   {n:'2', t:'Ahorrador de GC', x:['[[mtx|Metotrexato]] {off}: el más usado; de entrada si hay **morfea**, enfermedad extensa o respuesta insuficiente.','Alternativas: [[mmf|micofenolato]] {off}, [[hcq|HCQ]], [[aza|AZA]] o [[ciclosporina|ciclosporina]] {off}.'],
+    w:'El **retraso diagnóstico** (>6 meses) empeora la respuesta.'},
+   {n:'3', t:'Refractaria o recaída', x:['[[igiv|IGIV]] {off}, [[tocilizumab|tocilizumab]] {off}, JAKi {off}, [[rituximab|rituximab]] {off}.','Eosinofilia persistente: anti-IL-5 ([[mepolizumab|mepolizumab]], [[benralizumab|benralizumab]]) {off}.','Fotoféresis extracorpórea en centros con experiencia.']}
+  ]},
+  {t:'note', x:'Si aparece con inhibidores de puntos de control, coordinar con Oncología (ver [[e:paraneo|paraneoplásicos]]).'}],
+  src:'Lebeaux D, Rheumatology 2012;51:557-61 · Mango RL, Int J Rheum Dis 2020;23:233-9 · Mertens JS, JAMA Dermatol 2016;152:1262-5 · Jinnin M, J Dermatol 2018 · Curr Treatm Opt Rheumatol 2025'},
+ {n:'3b', h:'Fármacos', b:[{t:'drugs', x:[{t:'Primera línea', ids:['gc','mtx']},{t:'Alternativas', ids:['mmf','hcq','aza','ciclosporina']},{t:'Refractaria', ids:['igiv','tocilizumab','rituximab','mepolizumab','benralizumab']}]}], src:'Fichas técnicas CIMA'}
+],
+seg:[
+ {h:'Qué pedir y cada cuánto', b:[{t:'labs',
+   basic:['Hemograma con **eosinófilos**, VSG/PCR, perfil hepático y renal según fármaco'],
+   key:['==Extensión e induración cutánea y rango de movilidad articular== en cada visita','==Aldolasa e IgG== (actividad)','==Hemograma y proteinograma==: vigilar **hemopatías** asociadas'],
+   other:['RM o ecografía de control si dudas sobre la actividad','Exploración del túnel carpiano','DXA y profilaxis ósea con GC']}],
+  src:'{pc}'}
+],
+comp:[
+ {h:'Complicaciones', b:[{t:'t', head:['Complicación','Claves'], rows:[
+   ['Contracturas articulares','Principal causa de discapacidad; todos los pacientes de una cohorte tenían daño residual'],
+   ['Síndrome del túnel carpiano','Frecuente'],
+   ['Morfea asociada','Factor de peor pronóstico (fibrosis residual)'],
+   ['Hemopatías','Anemia aplásica, trombopenia, síndromes mielo y linfoproliferativos; ≈10 % paraneoplásica'],
+   ['Toxicidad por GC','Tratamientos largos']]}],
+  src:'Mertens JS, J Am Acad Dermatol 2017;77:512-7 · Cancers 2023 (revisión) · {pc}'}
 ]
 }});
 
@@ -3725,6 +3781,11 @@ add('sarcoidosis','ERS 2021',[
  ['MTX, infliximab, adalimumab, HCQ','Segunda y tercera línea.','La sarcoidosis no figura en sus fichas: **fuera de ficha**.']
 ], 'ERS 2021 · '+FT);
 
+add('fe','Cohortes y revisiones (sin guía)',[
+ ['[[mtx|MTX]], [[mmf|MMF]], [[ciclosporina|ciclosporina]]','Ahorradores de GC.','**Fuera de ficha técnica** en fascitis eosinofílica.'],
+ ['[[igiv|IGIV]], [[tocilizumab|tocilizumab]], anti-IL-5, JAKi','Refractaria.','Todos **fuera de ficha**: solicitud de uso fuera de ficha en el hospital.']
+], 'Revisiones 2023-2026 · '+FT);
+
 /* Fichas de fármacos */
 const D = R.drugs;
 D.canakinumab.vs = (D.canakinumab.vs||[]).concat([['Still','Primera línea con anakinra (EULAR/PReS 2024)','Autorizado, no financiado','EULAR/PReS']]);
@@ -3805,7 +3866,9 @@ T.saa = {n:'Amiloide A sérico', ab:['SAA'], what:'Con la PCR, mide la inflamaci
 T.calcio = {n:'Calcio, fósforo, PTH y vitamina D', ab:['calcemia','PTH','25-OH vitamina D','1,25-OH vitamina D','calciuria'], what:'Estudio de osteoporosis, EDPC precoz y sarcoidosis (hipercalcemia: medir 25-OH y 1,25-OH antes de suplementar).', where:[['op','crit'],['cppd','crit'],['sarcoidosis','crit'],['paget','seg']]};
 T.vasc_img = {n:'Imagen vascular', ab:['angio-RM','angio-TC','arteriografía'], what:'Takayasu (actividad y daño), PAN (microaneurismas viscerales), Behçet (aneurisma pulmonar antes de anticoagular).', where:[['tak','seg'],['pan','crit'],['behcet','seg']]};
 T.audio = {n:'Audiometría y pruebas vestibulares', ab:['audiometría'], what:'Cogan, policondritis, GPA y Paget craneal.', where:[['cogan','seg'],['pr','seg'],['gpa','comp']]};
-T.capilaroscopia.where = T.capilaroscopia.where.concat([['emtc','seg'],['cti','seg']]);
+T.capilaroscopia.where = T.capilaroscopia.where.concat([['emtc','seg'],['cti','seg'],['fe','crit']]);
+T.aldolasa = {n:'Aldolasa', ab:['aldolasa'], what:'Elevada con CK normal en la fascitis eosinofílica (afectación fascial); también en miositis.', where:[['fe','crit'],['fe','seg'],['dm','seg']]};
+T.rmfascia = {n:'RM muscular y de fascia', ab:['RM fascia','STIR'], what:'Fascia engrosada e hiperintensa en T2/STIR en la fascitis eosinofílica; guía la biopsia. Edema muscular en miositis.', where:[['fe','crit'],['fe','act']]};
 
 Object.assign(R.syn, {
   esa:['enfermedad de still'], aosd:['enfermedad de still'], still:['enfermedad de still'], sam:['activacion macrofagica'], mas:['activacion macrofagica'], hlh:['hemofagocitico'], hscore:['hemofagocitico'],
@@ -3824,7 +3887,7 @@ Object.assign(R.syn, {
   cppd:['pirofosfato'], edpc:['pirofosfato'], condrocalcinosis:['pirofosfato'], pseudogota:['pirofosfato'], corona:['corona odontoides'], ha:['hidroxiapatita'], bcp:['hidroxiapatita'], milwaukee:['hidroxiapatita'], calcificante:['hidroxiapatita'],
   fmf:['fiebre mediterranea familiar'], mefv:['fiebre mediterranea familiar'], saa:['amiloide'], dada2:['deficit adenosina desaminasa'], ada2:['deficit adenosina desaminasa'],
   osteoporosis:['osteoporosis'], seiomm:['osteoporosis'], frax:['osteoporosis'], bf:['bisfosfonatos'], bisfosfonato:['bisfosfonatos'], alendronato:['bisfosfonatos'], risedronato:['bisfosfonatos'], zol:['zoledronico'], zoledronato:['zoledronico'], prolia:['denosumab'], forsteo:['teriparatida'], evenity:['romosozumab'], eladynos:['abaloparatida'], raloxifeno:['moduladores selectivos estrogenos'], serm:['moduladores selectivos estrogenos'], ctx:['remodelado'], p1np:['remodelado'], onm:['osteonecrosis mandibula'], paget:['paget'],
-  septica:['artritis septica'], monoartritis:['artritis septica','gota','pirofosfato'], sarcoidosis:['sarcoidosis'], lofgren:['sarcoidosis'], oa:['artrosis'], rizartrosis:['artrosis'], gonartrosis:['artrosis'], coxartrosis:['artrosis'], fm:['fibromialgia'], fiqr:['fibromialgia'], wpi:['fibromialgia'], dish:['dish'], forestier:['dish'], sdrc:['dolor regional complejo'], crps:['dolor regional complejo'], budapest:['dolor regional complejo'], sudeck:['dolor regional complejo'], nav:['osteonecrosis'], arco:['osteonecrosis'], sponk:['osteonecrosis'], jones:['fiebre reumatica'], benzetacil:['penicilina benzatina'], rs3pe:['paraneoplasicos'], irae:['inmunoterapia'], ici:['inmunoterapia'],
+  septica:['artritis septica'], monoartritis:['artritis septica','gota','pirofosfato'], sarcoidosis:['sarcoidosis'], lofgren:['sarcoidosis'], oa:['artrosis'], rizartrosis:['artrosis'], gonartrosis:['artrosis'], coxartrosis:['artrosis'], fm:['fibromialgia'], fe:['fascitis eosinofilica'], shulman:['fascitis eosinofilica'], fascitis:['fascitis eosinofilica'], fiqr:['fibromialgia'], wpi:['fibromialgia'], dish:['dish'], forestier:['dish'], sdrc:['dolor regional complejo'], crps:['dolor regional complejo'], budapest:['dolor regional complejo'], sudeck:['dolor regional complejo'], nav:['osteonecrosis'], arco:['osteonecrosis'], sponk:['osteonecrosis'], jones:['fiebre reumatica'], benzetacil:['penicilina benzatina'], rs3pe:['paraneoplasicos'], irae:['inmunoterapia'], ici:['inmunoterapia'],
   septrin:['cotrimoxazol'], tmpsmx:['cotrimoxazol'], ruxo:['ruxolitinib'], jakavi:['ruxolitinib'], kineret:['anakinra'], ilaris:['canakinumab'], csa:['ciclosporina'], lyrica:['pregabalina'], cymbalta:['duloxetina'], tryptizol:['amitriptilina']
 });
 })(window.R360);
@@ -3837,8 +3900,8 @@ const R = window.R360;
 const $ = (s, el=document) => el.querySelector(s);
 const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const VERSION = "1.2";
-const UPDATED = '20 oct 2026';
+const VERSION = "1.2.1";
+const UPDATED = '21 oct 2026';
 
 /* ---------------- almacenamiento local (solo comodidades del usuario) ---------------- */
 const store = {
